@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transparencia | Fondo de Ayuda Musk</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body data-page="transparencia">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Fondo de Ayuda Musk">
+        <span class="brand-mark">M</span>
+        <span>Fondo de Ayuda Musk</span>
+      </a>
+      <nav class="nav-links" aria-label="Navegacion principal">
+        <a href="index.html" data-nav="inicio">Inicio</a>
+        <a href="como-funciona.html" data-nav="funciona">Como funciona</a>
+        <a href="solicitar-ayuda.html" data-nav="solicitar">Solicitar ayuda</a>
+        <a href="transparencia.html" data-nav="transparencia">Transparencia</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="page-hero">
+        <p class="eyebrow">Uso del fondo</p>
+        <h1>Distribucion propuesta de los USD 200 millones</h1>
+        <p>
+          La transparencia debe mostrar cuanto dinero entra, cuanto se aprueba,
+          cuanto se entrega y que resultados se lograron sin exponer datos
+          privados de los beneficiarios.
+        </p>
+      </section>
+
+      <section class="section fund-section">
+        <div class="fund-panel">
+          <span class="fund-label">Fondo total</span>
+          <strong>$200,000,000</strong>
+          <p>
+            Monto base indicado para esta maqueta. Los porcentajes pueden
+            cambiar segun paises, necesidades reales y reglas finales.
+          </p>
+        </div>
+        <div class="allocation-list fixed-list" id="allocation-list"></div>
+      </section>
+
+      <section class="section bank-audit-section">
+        <div class="section-heading center-heading">
+          <p class="eyebrow">Pagos bancarios directos</p>
+          <h2>La trazabilidad empieza en bancos de Estados Unidos</h2>
+          <p>
+            Cada ayuda aprobada debe quedar vinculada a una transferencia,
+            comprobante bancario, categoria del caso y expediente interno. Los
+            bancos mostrados son referencias visuales para la maqueta.
+          </p>
+        </div>
+
+        <div class="bank-logo-grid compact-bank-grid" aria-label="Bancos de referencia">
+          <figure class="bank-logo-card">
+            <img src="assets/bank-pnc.png" alt="PNC Bank" />
+            <figcaption>PNC</figcaption>
+          </figure>
+          <figure class="bank-logo-card">
+            <img src="assets/bank-citi.png" alt="Citibank" />
+            <figcaption>Citibank</figcaption>
+          </figure>
+          <figure class="bank-logo-card">
+            <img src="assets/bank-wells-fargo.png" alt="Wells Fargo" />
+            <figcaption>Wells Fargo</figcaption>
+          </figure>
+          <figure class="bank-logo-card chase-card">
+            <img src="assets/bank-chase.webp" alt="Chase Bank" />
+            <figcaption>Chase</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section visual-proof-section">
+        <div class="section-heading">
+          <p class="eyebrow">Evidencia visual</p>
+          <h2>Ejemplos de apoyos que deberian registrarse</h2>
+          <p>
+            En la version final, cada imagen tendria expediente interno, fecha,
+            categoria, monto aprobado y permiso de uso de imagen.
+          </p>
+        </div>
+
+        <div class="proof-grid">
+          <figure class="proof-card">
+            <img
+              src="assets/entrega-vivienda.jpg"
+              alt="Persona recibiendo llaves de una vivienda"
+            />
+            <figcaption>
+              <strong>Vivienda</strong>
+              <span>Entrega de llaves o cobertura de renta verificada.</span>
+            </figcaption>
+          </figure>
+          <figure class="proof-card">
+            <img
+              src="assets/entrega-llave.jpg"
+              alt="Entrega de llave dorada frente a una casa"
+            />
+            <figcaption>
+              <strong>Estabilidad familiar</strong>
+              <span>Apoyo para reubicacion, servicios basicos o refugio.</span>
+            </figcaption>
+          </figure>
+          <figure class="proof-card">
+            <img
+              src="assets/entrega-cheque.jpg"
+              alt="Cheque simbolico de ayuda humanitaria"
+            />
+            <figcaption>
+              <strong>Ayuda aprobada</strong>
+              <span>Subvencion documentada y reportada de forma agregada.</span>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section media-audit-section">
+        <div class="section-heading">
+          <p class="eyebrow">Archivo audiovisual</p>
+          <h2>Videos que pueden acompanar los reportes</h2>
+          <p>
+            Cada video publicado debe tener fecha, categoria, region y permiso
+            de uso. En esta maqueta se muestran como material ilustrativo.
+          </p>
+        </div>
+
+        <div class="audit-video-grid">
+          <video controls muted playsinline preload="metadata">
+            <source src="assets/video-fundacion-01.mp4" type="video/mp4" />
+          </video>
+          <video controls muted playsinline preload="metadata">
+            <source src="assets/video-fundacion-02.mp4" type="video/mp4" />
+          </video>
+          <video controls muted playsinline preload="metadata">
+            <source src="assets/video-fundacion-03.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </section>
+
+      <section class="section report-section">
+        <div class="section-heading">
+          <p class="eyebrow">Reportes publicos</p>
+          <h2>Que deberia publicarse cada mes</h2>
+        </div>
+        <div class="report-grid">
+          <article class="report-item">
+            <h3>Solicitudes recibidas</h3>
+            <p>Total por categoria, pais, urgencia y estado de revision.</p>
+          </article>
+          <article class="report-item">
+            <h3>Solicitudes aprobadas</h3>
+            <p>Numero de casos aprobados, rechazados y en espera de documentos.</p>
+          </article>
+          <article class="report-item">
+            <h3>Dinero entregado</h3>
+            <p>Monto pagado por categoria y tipo de proveedor beneficiado.</p>
+          </article>
+          <article class="report-item">
+            <h3>Resultados</h3>
+            <p>Familias estabilizadas, tratamientos cubiertos y proyectos activos.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section faq-section">
+        <h2>Preguntas importantes</h2>
+        <details>
+          <summary>El dinero se entrega directamente a la persona?</summary>
+          <p>
+            Preferiblemente se paga a proveedores verificados. El efectivo se usa
+            solo cuando sea necesario y seguro.
+          </p>
+        </details>
+        <details>
+          <summary>Que pasa si falta un documento?</summary>
+          <p>
+            El caso queda en espera y el equipo solicita informacion adicional.
+            Para emergencias, se puede revisar evidencia alternativa.
+          </p>
+        </details>
+        <details>
+          <summary>Como se evita el fraude?</summary>
+          <p>
+            Con verificacion de identidad, contacto con proveedores, comprobantes,
+            limites por categoria y auditorias externas.
+          </p>
+        </details>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>La version final debe incluir auditor externo, politicas y reportes reales.</p>
+    </footer>
+  </body>
+</html>

